@@ -6,6 +6,9 @@ import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { loadModel } from "./model-loader.js";
 
+let camera = null;
+let renderer = null;
+let domElement = null;
 let model = null;
 let composer = null;
 
@@ -18,12 +21,13 @@ if (!WebGL.isWebGL2Available()) {
 
 async function init() {
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setAnimationLoop(animate);
-    document.body.appendChild(renderer.domElement);
+    domElement = renderer.domElement;
+    document.body.appendChild(domElement);
 
     model = await loadModel();
     const scaleFactor = 30;
@@ -64,9 +68,16 @@ async function init() {
 }
 
 function animate(time) {
-    if (!model || !composer) {
+    if (!camera || !renderer || !domElement || !model || !composer) {
         // Waiting for asynchronous loading...
         return;
+    }
+
+    if (domElement.clientWidth !== window.innerWidth || domElement.clientHeight !== window.innerHeight) {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = domElement.clientWidth / domElement.clientHeight;
+        camera.updateProjectionMatrix();
     }
 
     model.rotation.set(time / 2000, time / 1000, 0);
