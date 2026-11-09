@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "lucide": "^1.70.0",
     "three": "^0.187.0"
   },
   "devDependencies": {

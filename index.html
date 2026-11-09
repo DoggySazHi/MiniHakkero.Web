@@ -9,7 +9,84 @@
 
 <body>
     <iframe src="/background.html" class="background-hakkero"></iframe>
-    <h1>test</h1>
+    <h1>Mini Hakkero</h1>
+    <div class="content-block">
+        <h2>Quick links</h2>
+        <div class="link-buttons">
+            <a href="https://github.com/DoggySazHi/MiniHakkero.CAD" class="link-button"><i data-lucide="printer-3d"></i> CAD/3DP models</a>
+            <a href="https://github.com/DoggySazHi/MiniHakkero.Pico" class="link-button"><i data-lucide="folder-code"></i> Raspberry Pi Pico firmware</a>
+            <a href="https://github.com/DoggySazHi/MiniHakkero.EDA" class="link-button"><i data-lucide="circuit-board"></i> KiCad PCB design</a>
+            <a href="https://github.com/DoggySazHi/MiniHakkero.Web" class="link-button"><i data-lucide="globe-code"></i> Website source code</a>
+        </div>
+    </div>
+
+    <div class="content-block">
+        <h2>How do I build this thing?</h2>
+        <p>
+            <b>Only care about the 3D printed model?</b> Click
+            <a href="https://github.com/DoggySazHi/MiniHakkero.CAD/releases/latest/download/Final.3mf">here</a>
+            to download the latest 3MF file. Open it in your favorite slicer and print it.
+        </p>
+        <p>
+            <details>
+                <summary>Need help assembling it?</summary>
+                <p>
+                    Check out the
+                    <a href="https://github.com/DoggySazHi/MiniHakkero.CAD">GitHub repository</a>
+                    for assembly instructions. But as a TLDR:
+                    <ul>
+                        <li>Print all plates in the 3MF file. Ensure your filament is dry, as some tolerances are tight.</li>
+                        <li>If you're using wood filament, stain the printed parts and let it dry for a day before assembling.</li>
+                        <li>Pay attention to how you're assembling the iris mechanism - you may want to use the wire version if you don't want to risk snapping plastic pins.</li>
+                    </ul>
+                </p>
+            </details>
+        </p>
+        <p>
+            <b>Want to also build the electronics?</b> Check out the
+            <a href="https://github.com/DoggySazHi/MiniHakkero.EDA">PCB</a> and
+            <a href="https://github.com/DoggySazHi/MiniHakkero.Pico">firmware</a> repositories.
+        </p>
+        <p>
+            <details>
+                <summary>Need help with the electronics?</summary>
+                <p>
+                    Take any Raspberry Pi Pico (real or clone - if you have the 2, you probably should build it) and drop the UF2 file from the
+                    <a href="https://github.com/DoggySazHi/MiniHakkero.Pico/releases/latest">firmware repository</a>
+                    onto it while holding down the BOOTSEL button.
+                </p>
+                <p>
+                    For the PCB, just send the ZIP file from the
+                    <a href="https://github.com/DoggySazHi/MiniHakkero.EDA/releases/latest">PCB repository</a>
+                    to your favorite PCB manufacturer. Make sure you select 0.8 mm board thickness.
+                </p>
+                <p>
+                    When assembling the electronics, my recommendations are as follows:
+                    <ul>
+                        <li>Start with the Pico side of the PCB, then once everything is down, hand-solder the WS2812B LEDs.</li>
+                        <li>The USB-C port and the MAX98357A amplifier are the most difficult components to solder. Try those first, especially if you don't have a hot plate.</li>
+                        <li>The MAX98357A can be replaced with an off-the-shelf breakout, if you don't want to deal with it.</li>
+                        <li>Everything else should be straightforward to solder with a fine-tip soldering iron.</li>
+                    </ul>
+                    Make sure you continuity check as you go, especially with the USB-C port. Once the Pico side is soldered (before the LEDs), plug in the Pico and check if you get serial/debug output.
+                </p>
+                <p>
+                    Remember to also attach copper/aluminum tape to the Mini Hakkero body for the capacitive touch sensor(s).
+                </p>
+            </details>
+        </p>
+    </div>
+
+    <div class="content-block">
+        <h2>Demonstration</h2>
+        <p>Video work in progress...</p>
+    </div>
+
+    <footer>
+        <p>Project by DoggySazHi, 2026. Finally done, woo!</p>
+    </footer>
+
+    <script type="module" src="/js/main.js"></script>
 </body>
 
 </html>
