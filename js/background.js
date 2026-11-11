@@ -67,10 +67,17 @@ async function init() {
     camera.position.z = 5;
 }
 
+let startTime = 0;
+const fadeDuration = 5000;
+
 function animate(time) {
     if (!camera || !renderer || !domElement || !model || !composer) {
         // Waiting for asynchronous loading...
         return;
+    }
+
+    if (!startTime) {
+        startTime = time;
     }
 
     if (domElement.clientWidth !== window.innerWidth || domElement.clientHeight !== window.innerHeight) {
@@ -80,7 +87,17 @@ function animate(time) {
         camera.updateProjectionMatrix();
     }
 
-    model.rotation.set(time / 2000, time / 1000, 0);
+    if (time - startTime < fadeDuration) {
+        domElement.style.opacity = (time - startTime) / fadeDuration;
+    } else {
+        domElement.style.opacity = 1;
+    }
+
+    model.rotation.set(
+        Math.PI + 0.1 * Math.sin(time / 2000),
+        Math.PI / 4 + 0.1 * Math.sin(time / 2400),
+        Math.PI / 3 + 0.1 * Math.sin(time / 2800)
+    );
     model.position.set(0, 0.2 * Math.sin(time / 1000), 0);
 
     composer.render();

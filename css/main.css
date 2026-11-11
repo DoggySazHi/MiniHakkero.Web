@@ -13,6 +13,27 @@ body {
     font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 20px;
+}
+
+.header-block h1 {
+    margin: 0;
+}
+
 footer {
     font-size: 12px;
     text-align: center;
@@ -40,4 +61,9 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
+    max-width: 300px;
+}
+
+summary {
+    cursor: pointer;
 }
