@@ -4,6 +4,27 @@ body {
     font-family: monospace;
 }
 
+button {
+    border-style: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: monospace;
+    color: white;
+    font-weight: bold !important;
+}
+
+button::before {
+    content: "[";
+}
+
+button::after {
+    content: "]";
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
 /* Modal for selection */
 .modal {
     position: fixed;
@@ -14,15 +35,24 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    gap: 10px;
+}
+
 .modal-content {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #222;
+    background-color: rgba(34, 34, 34, 1.0);
     padding: 20px;
-    border: 2px double #444;
-    outline: 2px solid #444;
+    border: 2px double rgba(34, 34, 34, 1.0);
+    outline: 2px solid rgba(34, 34, 34, 1.0);
     outline-offset: -8px;
     z-index: 69420;
 }
