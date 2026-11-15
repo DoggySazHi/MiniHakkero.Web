@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mini Hakkero Configuration Tool</title>
+    <link rel="stylesheet" href="/css/serial.css">
+</head>
+
+<body>
+    
+    <header>
+        <div class="header-block">
+            <h1>Hakkero Config</h1>
+            <p>Status: <span id="status">Disconnected</span></p>
+        </div>
+    </header>
+
+    <div class="content-block">
+        <!-- TODO need to make the split left/right resizable/collapsible -->
+    </div>
+
+    <div class="modal" id="selection-modal" style="display: none;">
+        <div class="modal-content">
+            <p>Select a serial port to connect to:</p>
+            <div id="serial-port-list"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="no-webserial-modal">
+        <div class="modal-content">
+            <b>Web Serial is not supported in your browser :(</b>
+            <p>Please allow permissions for Web Serial in your browser settings (or maybe update it?)</p>
+            <p>Fixed it? Refresh this page.</p>
+            <details>
+                <summary>Using Chrome/Edge/anything Chromium-based?</summary>
+                <p>Open <code>chrome://flags</code> (usually gets converted in the background for your actual browser) and enable <code>Web Serial API</code>.</p>
+            </details>
+            <details>
+                <summary>Using FireFox/LibreWolf?</summary>
+                <p>FireFox/LibreWolf 151 or newer is required.</p>
+                <p>Open <code>about:config</code> and set <code>dom.webserial.enabled</code> to <code>true</code>.</p>
+            </details>
+        </div>
+    </div>
+
+    <script type="module" src="/js/serial.js"></script>
+</body>
+
+</html>
