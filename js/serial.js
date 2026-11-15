@@ -14,6 +14,24 @@ if (!navigator.serial) {
 requestSerialPortDOM.addEventListener("click", requestSerialPort);
 listSerialPorts();
 
+// Basically taken from https://developer.chrome.com/docs/capabilities/serial
+class LineBreakTransformer {
+    constructor() {
+        this.chunks = "";
+    }
+
+    transform(chunk, controller) {
+        this.chunks += chunk;
+        const lines = this.chunks.split("\n");
+        this.chunks = lines.pop();
+        lines.forEach((line) => controller.enqueue(line));
+    }
+
+    flush(controller) {
+        controller.enqueue(this.chunks);
+    }
+}
+
 async function listSerialPorts() {
     const ports = await navigator.serial.getPorts();
     const portList = document.getElementById("serial-port-list");
@@ -30,7 +48,7 @@ async function listSerialPorts() {
             connectedDevice = portInClosure;
             connectedLoop(); // do NOT await
         });
-        
+
         portItem.appendChild(portButton);
         portList.appendChild(portItem);
     });
@@ -54,8 +72,10 @@ async function connectedLoop() {
     selectionModalDOM.style.display = "none";
 
     const textDecoder = new TextDecoderStream();
+    const lineBreakTransformer = new TransformStream(new LineBreakTransformer());
     const readableStreamClosed = connectedDevice.readable.pipeTo(textDecoder.writable);
-    const reader = textDecoder.readable.getReader();
+    const lineBreakStream = textDecoder.readable.pipeThrough(lineBreakTransformer);
+    const reader = lineBreakStream.getReader();
 
     while (connectedDevice.readable) {
         try {
@@ -65,14 +85,14 @@ async function connectedLoop() {
                     break;
                 }
                 // TODO do something with this data
-                // console.log(value);
+                console.log(value);
             }
         } finally {
             reader.releaseLock();
         }
     }
 
-    await readableStreamClosed.catch(() => {});
+    await readableStreamClosed.catch(() => { });
 
     statusDOM.textContent = "Disconnected";
     selectionModalDOM.style.display = "block";
