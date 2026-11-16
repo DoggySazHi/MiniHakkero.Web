@@ -2,6 +2,7 @@ let connectedDevice = null;
 
 const selectionModalDOM = document.getElementById("selection-modal");
 const requestSerialPortDOM = document.getElementById("request-serial-port");
+const disconnectDOM = document.getElementById("disconnect");
 const statusDOM = document.getElementById("status");
 
 if (!navigator.serial) {
@@ -12,6 +13,7 @@ if (!navigator.serial) {
 }
 
 requestSerialPortDOM.addEventListener("click", requestSerialPort);
+disconnectDOM.addEventListener("click", disconnect);
 listSerialPorts();
 
 // Basically taken from https://developer.chrome.com/docs/capabilities/serial
@@ -69,6 +71,7 @@ async function connectedLoop() {
     }
 
     statusDOM.textContent = "Connected";
+    disconnectDOM.style.display = "block";
     selectionModalDOM.style.display = "none";
 
     const textDecoder = new TextDecoderStream();
@@ -95,6 +98,7 @@ async function connectedLoop() {
     await readableStreamClosed.catch(() => { });
 
     statusDOM.textContent = "Disconnected";
+    disconnectDOM.style.display = "none";
     selectionModalDOM.style.display = "block";
 }
 
