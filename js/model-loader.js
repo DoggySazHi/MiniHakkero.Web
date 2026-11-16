@@ -1,7 +1,7 @@
 import { ThreeMFLoader } from "three/addons/loaders/3MFLoader.js";
 
 // const modelUrl = "https://github.com/DoggySazHi/MiniHakkero.CAD/releases/latest/download/Final.3mf";
-const modelUrl = "/img/Final.3mf";
+const modelUrl = new URL("../img/Final.3mf", import.meta.url).href;
 let modelCache = null;
 
 async function loadModelInternal() {
