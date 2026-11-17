@@ -1,8 +1,8 @@
-import { createIcons, Flame, Printer3d, FolderCode, GlobeCode, CircuitBoard } from 'lucide';
+import { createIcons, Settings, Printer3d, FolderCode, GlobeCode, CircuitBoard } from 'lucide';
 
 createIcons({
     icons: {
-        Flame,
+        Settings,
         Printer3d,
         FolderCode,
         GlobeCode,
